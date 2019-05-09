@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "target": "es6"
+    },
+    "exclude": [
+        "node_modules"
+    ],
+    "include": [
+        "models",
+        "routes",
+        "util",
+        "./app.js",
+        "controllers",
+        "middleware"
+    ],
+    "typeAcquisition": {
+        "include": [
+            "sequelize",
+            "mongoose",
+            "express-session",
+            "connect-mongodb-session",
+            "bcryptjs",
+            "csurf",
+            "connect-flash",
+            "nodemailer",
+            "express-validator"
+        ]
+    }
+}
