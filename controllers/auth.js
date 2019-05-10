@@ -1,23 +1,15 @@
 const crypto = require('crypto');
 
 const bcrypt = require('bcryptjs');
-//const nodemailer = require('nodemailer');
-//const sendgridTransport = require('nodemailer-sendgrid-transport');
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 console.log(process.env.SENDGRID_API_KEY);
 const { validationResult } = require('express-validator/check');
+
 const User = require('../models/user');
 
 
 exports.getLogin = (req, res, next) => {
-  //console.log(req.get('Cookie').split(';')[0].trim().split('=')[1]);
-  //   const isLoggedIn = req
-  //     .get('Cookie')
-  //     .split(';')[1]
-  //     .trim()
-  //     .split('=')[1] === 'true';
-  console.log(req.session.isLoggedIn);
   let message = req.flash('error');
   if (message.length > 0) {
     message = message[0];
@@ -87,7 +79,7 @@ exports.postSignup = (req, res, next) => {
     return res.status(422).render('auth/signup', {
       path: '/signup',
       pageTitle: 'Signup',
-      errorMessage: errors.array()
+      errorMessage: errors.array()[0].msg
     });
   }
   User.findOne({ email: email })
@@ -156,7 +148,6 @@ exports.postReset = (req, res, next) => {
       return res.redirect('/reset');
     }
     const token = buffer.toString('hex');
-    console.log(token);
     User.findOne({ email: req.body.email })
       .then(user => {
         if (!user) {
