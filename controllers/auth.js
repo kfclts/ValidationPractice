@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 //const sendgridTransport = require('nodemailer-sendgrid-transport');
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+console.log(process.env.SENDGRID_API_KEY);
 const { validationResult } = require('express-validator/check');
 const User = require('../models/user');
 
@@ -155,6 +156,7 @@ exports.postReset = (req, res, next) => {
       return res.redirect('/reset');
     }
     const token = buffer.toString('hex');
+    console.log(token);
     User.findOne({ email: req.body.email })
       .then(user => {
         if (!user) {

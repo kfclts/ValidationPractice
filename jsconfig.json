@@ -22,7 +22,7 @@
             "bcryptjs",
             "csurf",
             "connect-flash",
-            "nodemailer",
+            //"nodemailer",
             "express-validator"
         ]
     }
